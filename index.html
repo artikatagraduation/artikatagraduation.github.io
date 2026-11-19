@@ -1,0 +1,214 @@
+TES123<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Artikata Graduation</title>
+<meta name="theme-color" content="#1f3a2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Artikata">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#24201c;--muted:#7a7068;--bg:#f5f0e8;--card:#fffdf9;--line:#e8dfd2;--brand:#1f3a2e;--brand2:#2c5240;--gold:#b08a4e;--red:#b3261e;--ok:#2e6b4a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px}
+.serif{font-family:'Cormorant Garamond',serif}
+header{background:var(--brand);color:#f5f0e8;padding:20px 18px 18px;position:sticky;top:0;z-index:5}
+.brand{display:flex;justify-content:space-between;align-items:center}
+.logo{letter-spacing:.32em;font-size:13px;font-weight:600}
+.sub{opacity:.75;font-size:13px;margin-top:4px}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:none;color:inherit;font-size:18px}
+main{padding:16px 16px 120px;max-width:720px;margin:0 auto}
+.search{width:100%;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:var(--card);font-size:15px;font-family:inherit}
+.sec{display:flex;align-items:baseline;gap:10px;margin:26px 2px 10px}
+.sec h2{margin:0;font-size:30px;font-weight:600}
+.pill{font-size:13px;color:var(--muted)}
+.card{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.ava{flex:none;width:52px;height:52px;border-radius:14px;background:linear-gradient(145deg,#c9a46b,#94713d);color:#fff;display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-size:22px}
+.ci{flex:1;min-width:0}
+.cn{font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cm{color:var(--muted);font-size:13px;margin-top:2px}
+.cm b{color:var(--gold);font-weight:600}
+.bar{height:4px;background:var(--line);border-radius:4px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--brand2)}
+.cnt{font-size:12px;letter-spacing:.12em;color:var(--muted);margin-top:6px;text-transform:uppercase}
+.empty{color:var(--muted);text-align:center;padding:40px 10px}
+.sheet-bg{position:fixed;inset:0;background:rgba(20,16,12,.45);z-index:20;display:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-height:92vh;overflow:auto;background:var(--bg);border-radius:26px 26px 0 0;z-index:21;padding:10px 18px 30px;transform:translateY(100%);transition:transform .25s}
+.sheet.on{transform:none}.sheet-bg.on{display:block}
+.grab{width:44px;height:5px;border-radius:3px;background:#cfc4b4;margin:6px auto 14px}
+.sheet h3{font-size:34px;margin:4px 0 8px;font-weight:600;line-height:1.1}
+.chip{display:inline-block;padding:5px 12px;border-radius:999px;font-size:13px;background:#e3ece5;color:var(--ok);margin-right:8px}
+.chip.w{background:#f6e7cf;color:#8a5a12}.chip.r{background:#f7dedb;color:var(--red)}
+.btns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
+.btn{padding:13px 8px;border-radius:14px;border:1px solid var(--line);background:var(--card);font:inherit;font-weight:500;color:var(--ink);text-align:center;text-decoration:none;cursor:pointer}
+.btn.pri{background:#1f8a4c;border-color:#1f8a4c;color:#fff}
+.btn.dark{background:var(--brand);border-color:var(--brand);color:#fff}
+.box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:12px}
+.box h4{margin:0 0 10px;font-size:24px;font-weight:600}
+.code{background:#f1ebe2;border-radius:14px;padding:12px;font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.6;max-height:240px;overflow:auto;word-break:break-word}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;transition:opacity .2s;z-index:40;pointer-events:none}
+.toast.on{opacity:1}
+/* klien */
+.hero{background:linear-gradient(180deg,var(--brand),#2d4a3c);color:#f5f0e8;padding:26px 20px 70px}
+.hero h1{font-size:46px;margin:6px 0 6px;font-weight:600;line-height:1}
+.hero p{margin:0;opacity:.85}
+.info{background:var(--card);border-radius:20px;padding:16px;margin:-50px 16px 0;position:relative;border-left:4px solid var(--gold);line-height:1.5;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.tabs{display:flex;gap:8px;padding:16px;overflow:auto}
+.tab{flex:none;padding:10px 16px;border-radius:999px;background:#ebe3d7;border:0;font:inherit;color:var(--muted)}
+.tab.on{background:var(--ink);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;padding:0 6px 130px}
+@media(min-width:600px){.grid{grid-template-columns:repeat(4,1fr)}}
+.ph{position:relative;aspect-ratio:2/3;background:#e6ddd0;border-radius:10px;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph.sel{outline:3px solid var(--gold);outline-offset:-3px}
+.ck{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.15);display:grid;place-items:center;color:#fff;font-size:15px}
+.ph.sel .ck{background:var(--gold);border-color:var(--gold)}
+.no{position:absolute;top:8px;left:8px;min-width:24px;height:24px;border-radius:12px;background:var(--brand);color:#fff;font-size:12px;display:none;place-items:center;padding:0 6px}
+.ph.sel .no{display:grid}
+.zm{position:absolute;bottom:8px;right:8px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.4);color:#fff;border:0;font-size:15px}
+.fn{position:absolute;bottom:8px;left:8px;font-size:11px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.bottom{position:fixed;left:10px;right:10px;bottom:12px;background:var(--brand);color:#fff;border-radius:22px;padding:12px 12px 12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:10;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.big{font-family:'Cormorant Garamond',serif;font-size:34px;line-height:1}
+.small{font-size:12px;opacity:.8}
+.send{background:#fff;color:var(--brand);border:0;border-radius:16px;padding:14px 16px;font:inherit;font-weight:600}
+.send:disabled{opacity:.5}
+.lb{position:fixed;inset:0;background:#000;z-index:30;display:none;flex-direction:column}
+.lb.on{display:flex}
+.lb img{flex:1;min-height:0;object-fit:contain;width:100%}
+.lbbar{display:flex;gap:8px;padding:12px;justify-content:space-between;align-items:center;color:#fff}
+.lbbar button{background:#fff2;color:#fff;border:0;border-radius:12px;padding:12px 16px;font:inherit}
+.lbbar .on{background:var(--gold)}
+.center{min-height:70vh;display:grid;place-items:center;text-align:center;padding:30px;color:var(--muted)}
+.spin{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--brand);border-radius:50%;animation:s 1s linear infinite;margin:0 auto 12px}
+@keyframes s{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div id="app"><div class="center"><div><div class="spin"></div>Memuat…</div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const API = 'https://script.google.com/macros/s/AKfycby_ccfb02M9M0LFSR-DkYAXrgACasGhtpCm12xRzj3prJm2V1uYNOjA5Bz39_yaHRxzlQ/exec';
+const QS = new URLSearchParams(location.search);
+const BOOT = { token: (QS.get('g') || '').replace(/[^A-Za-z0-9]/g, ''), key: (QS.get('admin') || '').replace(/[^A-Za-z0-9]/g, '') };
+BOOT.mode = BOOT.token ? 'klien' : (BOOT.key ? 'admin' : 'tolak');
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const thumb = (id, w) => 'https://lh3.googleusercontent.com/d/' + id + '=w' + w;
+const fallback = (id, w) => 'https://drive.google.com/thumbnail?id=' + id + '&sz=w' + w;
+const tgl = t => t ? new Date(t).toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'}) : '';
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),1800)}
+function salin(text){
+  const done=()=>toast('Tersalin');
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,()=>lama(text,done))}else lama(text,done);
+}
+function lama(text,done){const a=document.createElement('textarea');a.value=text;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(e){toast('Gagal menyalin')}a.remove()}
+async function call(fn,...a){
+  let r;
+  if(fn==='apiAdmin')r=await fetch(API+'?api=admin&key='+encodeURIComponent(a[0]));
+  else if(fn==='apiKlien')r=await fetch(API+'?api=klien&g='+encodeURIComponent(a[0]));
+  else{const body=fn==='apiSimpan'?{api:'simpan',g:a[0],pilihan:a[1],final:a[2]}:{api:'buka',key:a[0],nama:a[1]};
+    r=await fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}
+  const j=await r.json();if(!j.ok)throw new Error(j.error||'Terjadi kesalahan');return j.data}
+function gagal(e){$('#app').innerHTML='<div class="center"><div>'+esc(e.message||e)+'</div></div>'}
+
+/* ================= ADMIN ================= */
+let DATA=[],Q='';
+async function admin(){
+  $('#app').innerHTML=`<header><div class="brand"><div><div class="logo">ARTIKATA</div><div class="sub">Studio seleksi foto graduation</div></div><button class="icon-btn" id="rf" aria-label="Muat ulang">⟳</button></div></header>
+  <main><input class="search" id="q" placeholder="Cari nama klien" autocomplete="off"><div id="list"><div class="center"><div><div class="spin"></div>Memuat klien…</div></div></div></main>
+  <div class="sheet-bg" id="bg"></div><div class="sheet" id="sh"></div>`;
+  $('#q').oninput=e=>{Q=e.target.value.toLowerCase();render()};
+  $('#rf').onclick=muat;$('#bg').onclick=tutup;
+  muat();
+}
+async function muat(){try{DATA=await call('apiAdmin',BOOT.key);DATA.forEach(k=>{if(k.token)k.link=location.origin+location.pathname+'?g='+k.token});render()}catch(e){gagal(e)}}
+function inisial(n){return n.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase()}
+function render(){
+  const grup=[['Sedang memilih','Sedang memilih'],['Belum mulai','Belum mulai'],['Selesai','Selesai'],['Folder belum ada','Folder foto belum ada']];
+  const rows=DATA.filter(k=>!Q||k.nama.toLowerCase().includes(Q));
+  let h='';
+  grup.forEach(([st,judul])=>{
+    const g=rows.filter(k=>k.status===st);if(!g.length)return;
+    h+=`<div class="sec"><h2 class="serif">${judul}</h2><span class="pill">${g.length} klien</span></div>`;
+    g.forEach(k=>{const i=DATA.indexOf(k);const pct=Math.min(100,Math.round(k.dipilih/k.kuota*100));
+      h+=`<div class="card" data-i="${i}"><div class="ava">${esc(inisial(k.nama))}</div><div class="ci"><div class="cn">${esc(k.nama)}</div>
+      <div class="cm"><b>${esc(k.paket||'Paket ?')}</b> · ${tgl(k.tgl)}${k.kampus?' · '+esc(k.kampus):''}</div>
+      ${k.folder?`<div class="bar"><i style="width:${pct}%"></i></div><div class="cnt">${k.dipilih} / ${k.kuota} foto dipilih</div>`:''}</div></div>`});
+  });
+  $('#list').innerHTML=h||'<div class="empty">Belum ada klien</div>';
+  document.querySelectorAll('.card').forEach(c=>c.onclick=()=>detail(DATA[c.dataset.i]));
+}
+function wa(k){let n=String(k.wa).replace(/\D/g,'');if(n.startsWith('0'))n='62'+n.slice(1);
+  const msg=`Halo ${k.nama}, foto wisuda kamu dari Artikata Graduation sudah siap. Silakan pilih maksimal ${k.kuota} foto untuk diedit di link ini:\n${k.link}\n\nPilihan tersimpan otomatis. Kalau sudah, tekan Kirim Seleksi Final ya.`;
+  return 'https://wa.me/'+n+'?text='+encodeURIComponent(msg)}
+function detail(k){
+  const chip=k.status==='Selesai'?'<span class="chip">Selesai</span>':k.status==='Sedang memilih'?'<span class="chip w">Sedang memilih</span>':k.status==='Belum mulai'?'<span class="chip w">Belum mulai</span>':'<span class="chip r">Folder belum ada</span>';
+  const kode=k.daftar?k.daftar:'';
+  let h=`<div class="grab"></div><h3 class="serif">${esc(k.nama)}</h3><div>${chip}<span class="cm"><b>${esc(k.paket||'Paket ?')}</b> · ${tgl(k.tgl)}</span></div>
+  ${k.kirim?`<div class="cm" style="margin-top:8px">Dikirim ${new Date(k.kirim).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})}</div>`:''}`;
+  if(!k.folder){h+=`<div class="box">Folder foto untuk klien ini belum ditemukan di Drive. Pastikan ada folder bernama klien di dalam folder bulan (contoh: <b>2026 NOVEMBER › STIK SUCI › NON EDIT</b>), lalu muat ulang.</div>`}
+  else{h+=`<div class="btns"><a class="btn pri" href="${wa(k)}" target="_blank">WhatsApp</a><button class="btn" id="cl">Salin link</button><a class="btn" href="${esc(k.link)}" target="_blank">Buka galeri</a></div>
+  <div class="box"><h4 class="serif">Progres seleksi</h4><div style="display:flex;justify-content:space-between"><span>Foto dipilih</span><b>${k.dipilih} / ${k.kuota}</b></div><div class="bar"><i style="width:${Math.min(100,Math.round(k.dipilih/k.kuota*100))}%"></i></div></div>
+  <div class="box"><h4 class="serif">Hasil seleksi</h4><div class="btns" style="grid-template-columns:1fr 1fr;margin-top:0"><button class="btn" id="bf">Buka folder</button><button class="btn" id="cp">Salin daftar file</button></div>
+  <div class="code">${kode?esc(k.nama.toUpperCase())+' ('+k.dipilih+'):<br>'+esc(kode):'Klien belum memilih foto.'}</div></div>
+  ${k.status==='Selesai'?'<button class="btn" id="bk" style="width:100%;margin-top:12px">Buka kembali seleksi untuk klien</button>':''}`}
+  $('#sh').innerHTML=h;$('#sh').classList.add('on');$('#bg').classList.add('on');
+  const cl=$('#cl');if(cl)cl.onclick=()=>salin(k.link);
+  const cp=$('#cp');if(cp)cp.onclick=()=>k.daftar?salin(k.daftar):toast('Klien belum memilih foto');
+  const bf=$('#bf');if(bf)bf.onclick=()=>window.open('https://drive.google.com/drive/folders/'+k.folder,'_blank');
+  const bk=$('#bk');if(bk)bk.onclick=async()=>{await call('apiBukaLagi',BOOT.key,k.nama);toast('Seleksi dibuka kembali');tutup();muat()};
+}
+function tutup(){$('#sh').classList.remove('on');$('#bg').classList.remove('on')}
+
+/* ================= KLIEN ================= */
+let K,PIL=[],F='semua',idx=-1,tSimpan;
+async function klien(){
+  try{K=await call('apiKlien',BOOT.token)}catch(e){return gagal(e)}
+  PIL=K.dipilih.slice();
+  if(K.status==='Selesai')return selesai();
+  $('#app').innerHTML=`<div class="hero"><div class="logo">ARTIKATA GRADUATION</div><h1 class="serif">${esc(K.nama)}</h1><p>${K.foto.length} foto dari sesi wisudamu, siap dipilih.</p></div>
+  <div class="info">Pilih foto yang ingin <b>diedit</b>, maksimal <b>${K.kuota} foto</b>. Ketuk foto untuk memilih, ketuk ⤢ untuk melihat lebih besar. Pilihan tersimpan otomatis. Kalau sudah, tekan <b>Kirim Seleksi Final</b>.</div>
+  <div class="tabs" id="tabs"></div><div class="grid" id="grid"></div>
+  <div class="bottom"><div><div><span class="big" id="n">0</span> / ${K.kuota}</div><div class="small" id="sv">dipilih</div></div><button class="send" id="kirim">Kirim Seleksi Final</button></div>
+  <div class="lb" id="lb"><div class="lbbar"><button id="lx">✕</button><span id="lt"></span><span></span></div><img id="li" alt=""><div class="lbbar"><button id="lp">‹</button><button id="ls">Pilih foto ini</button><button id="ln">›</button></div></div>`;
+  $('#kirim').onclick=kirim;$('#lx').onclick=()=>{$('#lb').classList.remove('on');if(F!=='semua')gambar()};
+  $('#lp').onclick=()=>lihat(idx-1);$('#ln').onclick=()=>lihat(idx+1);$('#ls').onclick=()=>{toggle(K.foto[idx][1]);lihat(idx)};
+  gambar();
+}
+function tabs(){const n=PIL.length;$('#tabs').innerHTML=[['semua','Semua '+K.foto.length],['dipilih','Dipilih '+n],['belum','Belum dipilih '+(K.foto.length-n)]].map(([v,l])=>`<button class="tab ${F===v?'on':''}" data-v="${v}">${l}</button>`).join('');
+  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{F=b.dataset.v;gambar()});$('#n').textContent=n;$('#kirim').disabled=!n}
+function gambar(){
+  tabs();
+  const list=K.foto.map((f,i)=>[f,i]).filter(([f])=>F==='semua'||(F==='dipilih')===PIL.includes(f[1]));
+  $('#grid').innerHTML=list.map(([f,i])=>{const p=PIL.indexOf(f[1]);return `<div class="ph ${p>=0?'sel':''}" data-i="${i}"><img loading="lazy" src="${thumb(f[0],480)}" onerror="this.onerror=null;this.src='${fallback(f[0],480)}'" alt=""><span class="no">${p+1}</span><span class="ck">✓</span><span class="fn">${esc(f[1])}</span><button class="zm" aria-label="Lihat besar">⤢</button></div>`}).join('')||'<div class="empty" style="grid-column:1/-1">Belum ada foto di sini</div>';
+  document.querySelectorAll('.ph').forEach(el=>{const i=+el.dataset.i;
+    el.onclick=e=>{if(e.target.classList.contains('zm'))return lihat(i);toggle(K.foto[i][1]);if(F!=='semua')gambar();else segar(el,K.foto[i][1])}});
+}
+function segar(el,nama){const p=PIL.indexOf(nama);el.classList.toggle('sel',p>=0);el.querySelector('.no').textContent=p+1;
+  document.querySelectorAll('.ph.sel').forEach(x=>{x.querySelector('.no').textContent=PIL.indexOf(K.foto[+x.dataset.i][1])+1});tabs()}
+function toggle(nama){const p=PIL.indexOf(nama);
+  if(p>=0)PIL.splice(p,1);else{if(PIL.length>=K.kuota){toast('Maksimal '+K.kuota+' foto');return}PIL.push(nama)}
+  $('#sv').textContent='menyimpan…';clearTimeout(tSimpan);tSimpan=setTimeout(simpan,1200)}
+async function simpan(){try{await call('apiSimpan',BOOT.token,urut(),false);$('#sv').textContent='tersimpan'}catch(e){$('#sv').textContent='gagal simpan';toast(e.message)}}
+function urut(){return PIL.slice().sort((a,b)=>a.localeCompare(b))}
+function lihat(i){if(i<0||i>=K.foto.length)return;idx=i;const f=K.foto[i];$('#li').src=thumb(f[0],1600);$('#li').onerror=function(){this.onerror=null;this.src=fallback(f[0],1600)};
+  $('#lt').textContent=f[1];const s=PIL.includes(f[1]);$('#ls').textContent=s?'✓ Dipilih':'Pilih foto ini';$('#ls').classList.toggle('on',s);$('#lb').classList.add('on');
+  if(F==='semua'){const el=document.querySelector(`.ph[data-i="${i}"]`);if(el)segar(el,f[1])}}
+async function kirim(){
+  if(!confirm('Kirim '+PIL.length+' foto sebagai pilihan final? Setelah dikirim, pilihan tidak bisa diubah lagi.'))return;
+  clearTimeout(tSimpan);$('#kirim').disabled=true;$('#kirim').textContent='Mengirim…';
+  try{await call('apiSimpan',BOOT.token,urut(),true);K.status='Selesai';selesai()}catch(e){toast(e.message);$('#kirim').disabled=false;$('#kirim').textContent='Kirim Seleksi Final'}
+}
+function selesai(){
+  const pilih=K.foto.filter(f=>PIL.includes(f[1]));
+  $('#app').innerHTML=`<div class="hero"><div class="logo">ARTIKATA GRADUATION</div><h1 class="serif">Terima kasih, ${esc(K.nama.split(' ')[0])}</h1><p>${PIL.length} foto pilihanmu sudah kami terima dan akan segera diedit.</p></div>
+  <div class="info">Kalau ingin mengubah pilihan, hubungi admin Artikata lewat WhatsApp.</div><div style="height:16px"></div>
+  <div class="grid" style="padding-bottom:30px">${pilih.map(f=>`<div class="ph sel"><img loading="lazy" src="${thumb(f[0],480)}" onerror="this.onerror=null;this.src='${fallback(f[0],480)}'" alt=""><span class="fn">${esc(f[1])}</span></div>`).join('')}</div>`;
+}
+
+if(BOOT.mode==='admin')admin();else if(BOOT.mode==='klien')klien();else gagal({message:'Halaman ini memerlukan link khusus dari Artikata.'});
+</script>
+</body>
+</html>
