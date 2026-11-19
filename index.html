@@ -33,6 +33,7 @@ main{padding:16px 16px 120px;max-width:720px;margin:0 auto}
 .bar{height:4px;background:var(--line);border-radius:4px;margin-top:8px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--brand2)}
 .cnt{font-size:12px;letter-spacing:.12em;color:var(--muted);margin-top:6px;text-transform:uppercase}
+.fg{font-size:13px;margin-top:4px;color:var(--brand2);font-weight:600}.fg.no{color:var(--red)}
 .empty{color:var(--muted);text-align:center;padding:40px 10px}
 .sheet-bg{position:fixed;inset:0;background:rgba(20,16,12,.45);z-index:20;display:none}
 .sheet{position:fixed;left:0;right:0;bottom:0;max-height:92vh;overflow:auto;background:var(--bg);border-radius:26px 26px 0 0;z-index:21;padding:10px 18px 30px;transform:translateY(100%);transition:transform .25s}
@@ -134,19 +135,20 @@ function render(){
     h+=`<div class="sec"><h2 class="serif">${judul}</h2><span class="pill">${g.length} klien</span></div>`;
     g.forEach(k=>{const i=DATA.indexOf(k);const pct=Math.min(100,Math.round(k.dipilih/k.kuota*100));
       h+=`<div class="card" data-i="${i}"><div class="ava">${esc(inisial(k.nama))}</div><div class="ci"><div class="cn">${esc(k.nama)}</div>
-      <div class="cm"><b>${esc(k.paket||'Paket ?')}</b> · ${tgl(k.tgl)}${k.kampus?' · '+esc(k.kampus):''}</div>
+      <div class="cm"><b>${esc(k.paket||'Paket ?')}</b> · ${tgl(k.tgl)}${k.kampus?' · '+esc(k.kampus):''}</div>${fgTag(k)}
       ${k.folder?`<div class="bar"><i style="width:${pct}%"></i></div><div class="cnt">${k.dipilih} / ${k.kuota} foto dipilih</div>`:''}</div></div>`});
   });
   $('#list').innerHTML=h||'<div class="empty">Belum ada klien</div>';
   document.querySelectorAll('.card').forEach(c=>c.onclick=()=>detail(DATA[c.dataset.i]));
 }
+function fgTag(k){return k.fg?`<div class="fg">FG: ${esc(k.fg)}</div>`:'<div class="fg no">⚠ FG belum ada</div>'}
 function wa(k){let n=String(k.wa).replace(/\D/g,'');if(n.startsWith('0'))n='62'+n.slice(1);
   const msg=`Halo ${k.nama}, foto wisuda kamu dari Artikata Graduation sudah siap. Silakan pilih maksimal ${k.kuota} foto untuk diedit di link ini:\n${k.link}\n\nPilihan tersimpan otomatis. Kalau sudah, tekan Kirim Seleksi Final ya.`;
   return 'https://wa.me/'+n+'?text='+encodeURIComponent(msg)}
 function detail(k){
   const chip=k.status==='Selesai'?'<span class="chip">Selesai</span>':k.status==='Sedang memilih'?'<span class="chip w">Sedang memilih</span>':k.status==='Belum mulai'?'<span class="chip w">Belum mulai</span>':'<span class="chip r">Folder belum ada</span>';
   const kode=k.daftar?k.daftar:'';
-  let h=`<div class="grab"></div><h3 class="serif">${esc(k.nama)}</h3><div>${chip}<span class="cm"><b>${esc(k.paket||'Paket ?')}</b> · ${tgl(k.tgl)}</span></div>
+  let h=`<div class="grab"></div><h3 class="serif">${esc(k.nama)}</h3><div>${chip}<span class="cm"><b>${esc(k.paket||'Paket ?')}</b> · ${tgl(k.tgl)}</span></div>${fgTag(k)}
   ${k.kirim?`<div class="cm" style="margin-top:8px">Dikirim ${new Date(k.kirim).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})}</div>`:''}`;
   if(!k.folder){h+=`<div class="box">Folder foto untuk klien ini belum ditemukan di Drive. Pastikan ada folder bernama klien di dalam folder bulan (contoh: <b>2026 NOVEMBER › STIK SUCI › NON EDIT</b>), lalu muat ulang.</div>`}
   else{h+=`<div class="btns"><a class="btn pri" href="${wa(k)}" target="_blank">WhatsApp</a><button class="btn" id="cl">Salin link</button><a class="btn" href="${esc(k.link)}" target="_blank">Buka galeri</a></div>
