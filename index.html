@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 .fg.no{display:block;position:static;min-width:0;height:auto;padding:0;background:none;color:var(--red)}
-  :root{--ink:#24201c;--muted:#7a7068;--bg:#f5f0e8;--card:#fffdf9;--line:#e8dfd2;--brand:#1f3a2e;--brand2:#2c5240;--gold:#b08a4e;--red:#b3261e;--ok:#2e6b4a}
+:root{--ink:#24201c;--muted:#7a7068;--bg:#f5f0e8;--card:#fffdf9;--line:#e8dfd2;--brand:#1f3a2e;--brand2:#2c5240;--gold:#b08a4e;--red:#b3261e;--ok:#2e6b4a}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px}
 .serif{font-family:'Cormorant Garamond',serif}
@@ -82,6 +82,11 @@ main{padding:16px 16px 120px;max-width:720px;margin:0 auto}
 .lbbar{display:flex;gap:8px;padding:12px;justify-content:space-between;align-items:center;color:#fff}
 .lbbar button{background:#fff2;color:#fff;border:0;border-radius:12px;padding:12px 16px;font:inherit}
 .lbbar .on{background:var(--gold)}
+.dl{position:absolute;top:8px;right:8px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.6);color:#fff;display:grid;place-items:center;text-decoration:none;font-size:16px}
+.unduh{display:flex;align-items:center;gap:12px;margin:18px 16px 8px;padding:12px 18px 12px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--brand);text-decoration:none;font-weight:600}
+.unduh i{width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-style:normal}
+.note{margin:0 22px 14px;font-size:13px;color:var(--muted);line-height:1.5}
+.lbbar a{background:rgba(255,255,255,.15);color:#fff;border-radius:12px;padding:12px 16px;text-decoration:none}
 .center{min-height:70vh;display:grid;place-items:center;text-align:center;padding:30px;color:var(--muted)}
 .spin{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--brand);border-radius:50%;animation:s 1s linear infinite;margin:0 auto 12px}
 @keyframes s{to{transform:rotate(360deg)}}
@@ -170,6 +175,7 @@ let K,PIL=[],F='semua',idx=-1,tSimpan;
 async function klien(){
   try{K=await call('apiKlien',BOOT.token)}catch(e){return gagal(e)}
   PIL=K.dipilih.slice();
+  if(K.edit&&K.edit.length)return galeriEdit();
   if(K.status==='Selesai')return selesai();
   $('#app').innerHTML=`<div class="hero"><div class="logo">ARTIKATA GRADUATION</div><h1 class="serif">${esc(K.nama)}</h1><p>${K.foto.length} foto dari sesi wisudamu, siap dipilih.</p></div>
   <div class="info">Pilih foto yang ingin <b>diedit</b>, maksimal <b>${K.kuota} foto</b>. Ketuk foto untuk memilih, ketuk ⤢ untuk melihat lebih besar. Pilihan tersimpan otomatis. Kalau sudah, tekan <b>Kirim Seleksi Final</b>.</div>
@@ -203,6 +209,18 @@ async function kirim(){
   if(!confirm('Kirim '+PIL.length+' foto sebagai pilihan final? Setelah dikirim, pilihan tidak bisa diubah lagi.'))return;
   clearTimeout(tSimpan);$('#kirim').disabled=true;$('#kirim').textContent='Mengirim…';
   try{await call('apiSimpan',BOOT.token,urut(),true);K.status='Selesai';selesai()}catch(e){toast(e.message);$('#kirim').disabled=false;$('#kirim').textContent='Kirim Seleksi Final'}
+}
+function galeriEdit(){
+  const n=K.edit.length,dl=id=>'https://drive.google.com/uc?export=download&id='+id;
+  $('#app').innerHTML=`<div class="hero"><div class="logo">ARTIKATA GRADUATION</div><h1 class="serif">Foto wisudamu sudah jadi</h1><p>${esc(K.nama)} \u00b7 ${n} foto hasil edit, disiapkan dengan sepenuh hati oleh Artikata.</p></div>
+  <div class="info"><b>Galeri hasil edit</b>: ketuk foto untuk memperbesar, tekan \u2b07 di pojok foto untuk menyimpan satu foto, atau <b>Unduh semua foto</b> untuk menyimpan semuanya sekaligus.</div>
+  <a class="unduh" href="https://drive.google.com/drive/folders/${esc(K.folderEdit)}" target="_blank" rel="noopener"><i>\u2b07</i>Unduh semua foto</a>
+  <div class="note">Terbuka di Google Drive. Tekan Download di kanan atas untuk mengunduh semua foto sekaligus dalam satu file ZIP.</div>
+  <div class="grid" style="padding-bottom:30px">${K.edit.map((f,i)=>`<div class="ph" data-e="${i}"><img loading="lazy" src="${thumb(f[0],600)}" onerror="this.onerror=null;this.src='${fallback(f[0],600)}'" alt=""><a class="dl" href="${dl(f[0])}" target="_blank" rel="noopener" aria-label="Unduh foto">\u2b07</a></div>`).join('')}</div>
+  <div class="lb" id="lb"><div class="lbbar"><button id="lx">\u2715</button><span id="lt"></span><a id="ld" target="_blank" rel="noopener">\u2b07 Unduh</a></div><img id="li" alt=""><div class="lbbar"><button id="lp">\u2039</button><span></span><button id="ln">\u203a</button></div></div>`;
+  let j=0;const show=i=>{if(i<0||i>=n)return;j=i;const f=K.edit[i];const im=$('#li');im.onerror=function(){this.onerror=null;this.src=fallback(f[0],1600)};im.src=thumb(f[0],1600);$('#lt').textContent=(i+1)+' / '+n;$('#ld').href=dl(f[0]);$('#lb').classList.add('on')};
+  document.querySelectorAll('.ph').forEach(el=>el.onclick=e=>{if(e.target.closest('.dl'))return;show(+el.dataset.e)});
+  $('#lx').onclick=()=>$('#lb').classList.remove('on');$('#lp').onclick=()=>show(j-1);$('#ln').onclick=()=>show(j+1);
 }
 function selesai(){
   const pilih=K.foto.filter(f=>PIL.includes(f[1]));
